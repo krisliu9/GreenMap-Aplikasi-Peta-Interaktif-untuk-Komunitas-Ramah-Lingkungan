@@ -24,16 +24,30 @@ func (controller *UserControllers) Login(c echo.Context) error {
 	c.Bind(&input)
 
 	if input.Email == "" || input.Password == "" {
-		return echo.NewHTTPError(http.StatusBadRequest, "Email and password are required")
+		response := Response{
+			Status:     false,
+			StatusCode: http.StatusBadRequest,
+			Message:    "Email and password are required",
+		}
+		return echo.NewHTTPError(http.StatusBadRequest, response)
 	}
 
 	token, err := controller.UserUseCase.Login(input.Email, input.Password)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to login")
+		response := Response{
+			Status:     false,
+			StatusCode: http.StatusInternalServerError,
+			Message:    "Failed to login",
+		}
+		return echo.NewHTTPError(http.StatusInternalServerError, response)
 	}
-	return c.JSON(http.StatusCreated, echo.Map{
-		"token": token,
-	})
+	response := Response{
+		Status:     true,
+		StatusCode: http.StatusCreated,
+		Message:    "Login success",
+		Token:      token,
+	}
+	return c.JSON(http.StatusCreated, response)
 }
 
 func (controller *UserControllers) Register(c echo.Context) error {
@@ -42,14 +56,28 @@ func (controller *UserControllers) Register(c echo.Context) error {
 	c.Bind(&input)
 
 	if input.Name == "" || input.Email == "" || input.Password == "" {
-		return echo.NewHTTPError(http.StatusBadRequest, "Name, email, and password are required")
+		response := Response{
+			Status:     false,
+			StatusCode: http.StatusInternalServerError,
+			Message:    "Name, email, and password are required",
+		}
+		return echo.NewHTTPError(http.StatusBadRequest, response)
 	}
 
 	token, err := controller.UserUseCase.Register(input.Name, input.Email, input.Password)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to register")
+		response := Response{
+			Status:     false,
+			StatusCode: http.StatusInternalServerError,
+			Message:    "Failed to register",
+		}
+		return echo.NewHTTPError(http.StatusInternalServerError, response)
 	}
-	return c.JSON(http.StatusCreated, echo.Map{
-		"token": token,
-	})
+	response := Response{
+		Status:     true,
+		StatusCode: http.StatusCreated,
+		Message:    "Register success",
+		Token:      token,
+	}
+	return c.JSON(http.StatusCreated, response)
 }
