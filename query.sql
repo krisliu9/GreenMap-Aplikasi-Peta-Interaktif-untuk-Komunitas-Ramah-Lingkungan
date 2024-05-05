@@ -1,16 +1,5 @@
-CREATE TABLE reports (
-    Id BIGINT PRIMARY KEY,
-    user_id BIGINT,
-    pinpoint_id BIGINT,
-    reasons TEXT,
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(Id),
-    FOREIGN KEY (pinpoint_id) REFERENCES pinpoints(Id)
-);
-
 CREATE TABLE users (
-    Id BIGINT PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255),
     password VARCHAR(255),
     name VARCHAR(255),
@@ -21,23 +10,8 @@ CREATE TABLE users (
     CONSTRAINT email_unique UNIQUE (email)
 );
 
-CREATE TABLE pinpoints (
-    Id BIGINT PRIMARY KEY,
-    user_id BIGINT,
-    pinpoint_type_id BIGINT,
-    longitude FLOAT,
-    latitude FLOAT,
-    image VARCHAR(255),
-    name VARCHAR(255),
-    description VARCHAR(255),
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(Id),
-    FOREIGN KEY (pinpoint_type_id) REFERENCES pinpoint_types(Id)
-);
-
 CREATE TABLE pinpoint_types (
-    Id BIGINT PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     image_url VARCHAR(255),
     name VARCHAR(255),
     created_at TIMESTAMP,
@@ -45,7 +19,7 @@ CREATE TABLE pinpoint_types (
 );
 
 CREATE TABLE missions (
-    Id BIGINT PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     target INT,
     point INT,
     description VARCHAR(255),
@@ -56,12 +30,38 @@ CREATE TABLE missions (
 );
 
 CREATE TABLE user_missions (
-    Id BIGINT PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     user_id BIGINT,
     mission_id BIGINT,
     current_progress INT,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(Id),
-    FOREIGN KEY (mission_id) REFERENCES missions(Id)
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (mission_id) REFERENCES missions(id)
+);
+
+CREATE TABLE pinpoints (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT,
+    pinpoint_type_id BIGINT,
+    longitude FLOAT,
+    latitude FLOAT,
+    image VARCHAR(255),
+    name VARCHAR(255),
+    description VARCHAR(255),
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (pinpoint_type_id) REFERENCES pinpoint_types(id)
+);
+
+CREATE TABLE reports (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT,
+    pinpoint_id BIGINT,
+    reasons TEXT,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (pinpoint_id) REFERENCES pinpoints(id)
 );
