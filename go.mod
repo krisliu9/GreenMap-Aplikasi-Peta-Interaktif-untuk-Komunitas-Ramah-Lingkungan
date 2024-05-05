@@ -3,6 +3,7 @@ module mini-project
 go 1.22.0
 
 require (
+	github.com/go-resty/resty/v2 v2.12.0
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/labstack/echo/v4 v4.12.0
 	gorm.io/driver/mysql v1.5.6
