@@ -1,8 +1,6 @@
 package database
 
 import (
-	"mini-project/repository"
-
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -18,5 +16,5 @@ func InitDatabase() {
 		panic("Failed to connect to database!")
 	}
 
-	DB.AutoMigrate(&repository.User{})
+	//DB.AutoMigrate(&repository.User{})
 }
