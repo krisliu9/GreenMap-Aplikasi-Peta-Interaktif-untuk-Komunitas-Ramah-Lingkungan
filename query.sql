@@ -59,7 +59,7 @@ CREATE TABLE reports (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     user_id BIGINT,
     pinpoint_id BIGINT,
-    reasons TEXT,
+    reason TEXT,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id),
