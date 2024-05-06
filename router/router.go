@@ -15,6 +15,7 @@ func NewRouter() echo.Echo {
 	userRepo := repository.NewUserRepository(*database.DB)
 	pinpointRepo := repository.NewPinpointRepository(*database.DB)
 	missionRepo := repository.NewMissionRepository(*database.DB)
+	reportRepo := repository.NewReportRepository(*database.DB)
 
 	userUseCase := usecase.NewUserUseCase(userRepo)
 	userController := controllers.NewUserControllers(userUseCase)
@@ -22,8 +23,15 @@ func NewRouter() echo.Echo {
 	pinpointController := controllers.NewPinpointControllers(pinpointUseCase)
 	missionUseCase := usecase.NewMissionUseCase(missionRepo)
 	missionController := controllers.NewMissionControllers(missionUseCase)
+	reportUseCase := usecase.NewReportUseCase(reportRepo)
+	reportController := controllers.NewReportControllers(reportUseCase)
 
 	e := echo.New()
+	e.GET("/reports", reportController.GetAllReports)
+	e.GET("/reports/:id", reportController.GetReport)
+	e.POST("/reports", reportController.CreateReport)
+	e.PUT("/reports/:id", reportController.UpdateReport)
+	e.DELETE("/reports/:id", reportController.DeleteReport)
 	e.GET("/missions", missionController.GetAllMissions)
 	e.GET("/missions/:id", missionController.GetMission)
 	e.POST("/missions", missionController.CreateMission)
