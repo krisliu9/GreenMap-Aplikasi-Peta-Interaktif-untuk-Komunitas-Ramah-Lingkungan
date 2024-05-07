@@ -12,17 +12,17 @@ type ReportRepository interface {
 	Delete(id uint) error
 }
 
-type ReportRepositoryReciever struct {
+type ReportRepositoryReceiver struct {
 	DB gorm.DB
 }
 
-func NewReportRepository(db gorm.DB) *ReportRepositoryReciever {
-	return &ReportRepositoryReciever{
+func NewReportRepository(db gorm.DB) *ReportRepositoryReceiver {
+	return &ReportRepositoryReceiver{
 		DB: db,
 	}
 }
 
-func (r *ReportRepositoryReciever) GetAll() ([]Report, error) {
+func (r *ReportRepositoryReceiver) GetAll() ([]Report, error) {
 	var reports []Report
 	err := r.DB.Find(&reports).Error
 	if err != nil {
@@ -31,7 +31,7 @@ func (r *ReportRepositoryReciever) GetAll() ([]Report, error) {
 	return reports, nil
 }
 
-func (r *ReportRepositoryReciever) GetByID(id uint) (Report, error) {
+func (r *ReportRepositoryReceiver) GetByID(id uint) (Report, error) {
 	var report Report
 	err := r.DB.First(&report, id).Error
 	if err != nil {
@@ -40,7 +40,7 @@ func (r *ReportRepositoryReciever) GetByID(id uint) (Report, error) {
 	return report, nil
 }
 
-func (r *ReportRepositoryReciever) Create(reason string) (Report, error) {
+func (r *ReportRepositoryReceiver) Create(reason string) (Report, error) {
 	report := Report{Reason: reason}
 	err := r.DB.Create(&report).Error
 	if err != nil {
@@ -49,7 +49,7 @@ func (r *ReportRepositoryReciever) Create(reason string) (Report, error) {
 	return report, nil
 }
 
-func (r *ReportRepositoryReciever) Update(id uint, reason string) (Report, error) {
+func (r *ReportRepositoryReceiver) Update(id uint, reason string) (Report, error) {
 	report, err := r.GetByID(id)
 	if err != nil {
 		return Report{}, err
@@ -62,7 +62,7 @@ func (r *ReportRepositoryReciever) Update(id uint, reason string) (Report, error
 	return report, nil
 }
 
-func (r *ReportRepositoryReciever) Delete(id uint) error {
+func (r *ReportRepositoryReceiver) Delete(id uint) error {
 	report, err := r.GetByID(id)
 	if err != nil {
 		return err

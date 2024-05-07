@@ -15,17 +15,17 @@ type PinpointRepository interface {
 	Delete(id uint) error
 }
 
-type PinpointRepositoryReciever struct {
+type PinpointRepositoryReceiver struct {
 	DB gorm.DB
 }
 
-func NewPinpointRepository(db gorm.DB) *PinpointRepositoryReciever {
-	return &PinpointRepositoryReciever{
+func NewPinpointRepository(db gorm.DB) *PinpointRepositoryReceiver {
+	return &PinpointRepositoryReceiver{
 		DB: db,
 	}
 }
 
-func (r *PinpointRepositoryReciever) GetAll() ([]Pinpoint, error) {
+func (r *PinpointRepositoryReceiver) GetAll() ([]Pinpoint, error) {
 	var pinpoints []Pinpoint
 	if err := r.DB.Find(&pinpoints).Error; err != nil {
 		return []Pinpoint{}, err
@@ -33,7 +33,7 @@ func (r *PinpointRepositoryReciever) GetAll() ([]Pinpoint, error) {
 	return pinpoints, nil
 }
 
-func (r *PinpointRepositoryReciever) GetByID(id uint) (Pinpoint, error) {
+func (r *PinpointRepositoryReceiver) GetByID(id uint) (Pinpoint, error) {
 	var pinpoint Pinpoint
 	if err := r.DB.First(&pinpoint, id).Error; err != nil {
 		return Pinpoint{}, err
@@ -41,7 +41,7 @@ func (r *PinpointRepositoryReciever) GetByID(id uint) (Pinpoint, error) {
 	return pinpoint, nil
 }
 
-func (r *PinpointRepositoryReciever) Create(name, description string, latitude, longitude float64) (Pinpoint, error) {
+func (r *PinpointRepositoryReceiver) Create(name, description string, latitude, longitude float64) (Pinpoint, error) {
 	pinpoint := Pinpoint{
 		Name:        name,
 		Description: description,
@@ -56,7 +56,7 @@ func (r *PinpointRepositoryReciever) Create(name, description string, latitude, 
 	return pinpoint, nil
 }
 
-func (r *PinpointRepositoryReciever) Update(id uint, name, description string, latitude, longitude float64) (Pinpoint, error) {
+func (r *PinpointRepositoryReceiver) Update(id uint, name, description string, latitude, longitude float64) (Pinpoint, error) {
 	pinpoint := Pinpoint{
 		ID:          id,
 		Name:        name,
@@ -73,7 +73,7 @@ func (r *PinpointRepositoryReciever) Update(id uint, name, description string, l
 	return pinpoint, nil
 }
 
-func (r *PinpointRepositoryReciever) Delete(id uint) error {
+func (r *PinpointRepositoryReceiver) Delete(id uint) error {
 	if err := r.DB.Delete(&Pinpoint{}, id).Error; err != nil {
 		return err
 	}
