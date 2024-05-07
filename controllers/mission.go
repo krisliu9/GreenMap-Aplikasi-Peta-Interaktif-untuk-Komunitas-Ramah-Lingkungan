@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"fmt"
+	"mini-project/auth"
 	"mini-project/usecase"
 	"net/http"
 	"strconv"
@@ -47,6 +49,18 @@ type MissionInsertRequest struct {
 }
 
 func (controller *MissionControllers) CreateMission(c echo.Context) error {
+	claims, err := auth.GetTokenClaims(c)
+	role := claims["role"]
+	if err != nil || role != auth.RoleAdmin {
+		fmt.Println(err)
+		response := Response{
+			Status:     false,
+			StatusCode: http.StatusInternalServerError,
+			Message:    http.StatusText(http.StatusUnauthorized),
+		}
+		return c.JSON(http.StatusInternalServerError, response)
+	}
+
 	var input MissionInsertRequest
 
 	c.Bind(&input)
@@ -80,6 +94,17 @@ func (controller *MissionControllers) CreateMission(c echo.Context) error {
 }
 
 func (controller *MissionControllers) UpdateMission(c echo.Context) error {
+	claims, err := auth.GetTokenClaims(c)
+	role := claims["role"]
+	if err != nil || role != auth.RoleAdmin {
+		response := Response{
+			Status:     false,
+			StatusCode: http.StatusInternalServerError,
+			Message:    http.StatusText(http.StatusUnauthorized),
+		}
+		return c.JSON(http.StatusInternalServerError, response)
+	}
+
 	id, _ := strconv.Atoi(c.Param("id"))
 	var input MissionInsertRequest
 
@@ -114,9 +139,20 @@ func (controller *MissionControllers) UpdateMission(c echo.Context) error {
 }
 
 func (controller *MissionControllers) DeleteMission(c echo.Context) error {
+	claims, err := auth.GetTokenClaims(c)
+	role := claims["role"]
+	if err != nil || role != auth.RoleAdmin {
+		response := Response{
+			Status:     false,
+			StatusCode: http.StatusInternalServerError,
+			Message:    http.StatusText(http.StatusUnauthorized),
+		}
+		return c.JSON(http.StatusInternalServerError, response)
+	}
+
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	err := controller.MissionUseCase.DeleteMission(uint(id))
+	err = controller.MissionUseCase.DeleteMission(uint(id))
 	if err != nil {
 		response := Response{
 			Status:     false,

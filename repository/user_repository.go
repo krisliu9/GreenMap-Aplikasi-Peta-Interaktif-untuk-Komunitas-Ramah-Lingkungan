@@ -6,7 +6,7 @@ import (
 
 type UserRepository interface {
 	Login(email, password string) (User, error)
-	Register(name, email, password string) (User, error)
+	Register(name, email, password, role string) (User, error)
 }
 
 type UserRepositoryReciever struct {
@@ -28,8 +28,8 @@ func (repo *UserRepositoryReciever) Login(email, password string) (User, error) 
 	return user, nil
 }
 
-func (repo *UserRepositoryReciever) Register(name, email, password string) (User, error) {
-	user := User{Name: name, Email: email, Password: password}
+func (repo *UserRepositoryReciever) Register(name, email, password, role string) (User, error) {
+	user := User{Name: name, Email: email, Password: password, Role: role}
 	result := repo.DB.Create(&user)
 	if result.Error != nil {
 		return user, result.Error

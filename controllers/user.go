@@ -64,7 +64,7 @@ func (controller *UserControllers) Register(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, response)
 	}
 
-	token, err := controller.UserUseCase.Register(input.Name, input.Email, input.Password)
+	token, err := controller.UserUseCase.Register(input.Name, input.Email, input.Password, input.Role)
 	if err != nil {
 		response := Response{
 			Status:     false,
