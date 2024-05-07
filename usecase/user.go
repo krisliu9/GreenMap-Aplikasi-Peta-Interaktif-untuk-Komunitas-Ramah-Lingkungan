@@ -1,10 +1,8 @@
 package usecase
 
 import (
+	"mini-project/auth"
 	"mini-project/repository"
-	"time"
-
-	"github.com/golang-jwt/jwt"
 )
 
 type UserUseCase struct {
@@ -22,34 +20,21 @@ func (usecase *UserUseCase) Login(email, password string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	token := jwt.New(jwt.SigningMethodHS256)
-
-	claims := token.Claims.(jwt.MapClaims)
-	claims["user_id"] = user.ID
-	claims["exp"] = time.Now().Add(time.Hour).Unix()
-
-	t, err := token.SignedString([]byte("your_secret_key"))
+	token, err := auth.GenerateToken(user.ID, user.Role)
 	if err != nil {
-		return "", err
+		return token, err
 	}
-
-	return t, nil
+	return token, nil
 }
 
-func (usecase *UserUseCase) Register(name, email, password string) (string, error) {
-	user, err := usecase.UserRepo.Register(name, email, password)
+func (usecase *UserUseCase) Register(name, email, password, role string) (string, error) {
+	user, err := usecase.UserRepo.Register(name, email, password, role)
 	if err != nil {
 		return "", err
 	}
-	token := jwt.New(jwt.SigningMethodHS256)
-
-	claims := token.Claims.(jwt.MapClaims)
-	claims["user_id"] = user.ID
-	claims["exp"] = time.Now().Add(time.Hour).Unix()
-
-	t, err := token.SignedString([]byte("your_secret_key"))
+	token, err := auth.GenerateToken(user.ID, user.Role)
 	if err != nil {
-		return "", err
+		return token, err
 	}
-	return t, nil
+	return token, nil
 }
