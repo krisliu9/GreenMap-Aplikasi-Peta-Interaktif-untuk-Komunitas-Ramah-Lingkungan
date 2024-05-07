@@ -9,17 +9,17 @@ type UserRepository interface {
 	Register(name, email, password, role string) (User, error)
 }
 
-type UserRepositoryReciever struct {
+type UserRepositoryReceiver struct {
 	DB gorm.DB
 }
 
-func NewUserRepository(db gorm.DB) *UserRepositoryReciever {
-	return &UserRepositoryReciever{
+func NewUserRepository(db gorm.DB) *UserRepositoryReceiver {
+	return &UserRepositoryReceiver{
 		DB: db,
 	}
 }
 
-func (repo *UserRepositoryReciever) Login(email, password string) (User, error) {
+func (repo *UserRepositoryReceiver) Login(email, password string) (User, error) {
 	var user User
 	result := repo.DB.Where("email = ? AND password = ?", email, password).First(&user)
 	if result.Error != nil {
@@ -28,7 +28,7 @@ func (repo *UserRepositoryReciever) Login(email, password string) (User, error) 
 	return user, nil
 }
 
-func (repo *UserRepositoryReciever) Register(name, email, password, role string) (User, error) {
+func (repo *UserRepositoryReceiver) Register(name, email, password, role string) (User, error) {
 	user := User{Name: name, Email: email, Password: password, Role: role}
 	result := repo.DB.Create(&user)
 	if result.Error != nil {

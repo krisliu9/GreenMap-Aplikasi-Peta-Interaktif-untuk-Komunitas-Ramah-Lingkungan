@@ -14,17 +14,17 @@ type MissionRepository interface {
 	Delete(id uint) error
 }
 
-type MissionRepositoryReciever struct {
+type MissionRepositoryReceiver struct {
 	DB gorm.DB
 }
 
-func NewMissionRepository(db gorm.DB) *MissionRepositoryReciever {
-	return &MissionRepositoryReciever{
+func NewMissionRepository(db gorm.DB) *MissionRepositoryReceiver {
+	return &MissionRepositoryReceiver{
 		DB: db,
 	}
 }
 
-func (r *MissionRepositoryReciever) GetAll() ([]Mission, error) {
+func (r *MissionRepositoryReceiver) GetAll() ([]Mission, error) {
 	var missions []Mission
 	if err := r.DB.Find(&missions).Error; err != nil {
 		return []Mission{}, err
@@ -32,7 +32,7 @@ func (r *MissionRepositoryReciever) GetAll() ([]Mission, error) {
 	return missions, nil
 }
 
-func (r *MissionRepositoryReciever) GetByID(id uint) (Mission, error) {
+func (r *MissionRepositoryReceiver) GetByID(id uint) (Mission, error) {
 	var mission Mission
 	if err := r.DB.First(&mission, id).Error; err != nil {
 		return Mission{}, err
@@ -40,7 +40,7 @@ func (r *MissionRepositoryReciever) GetByID(id uint) (Mission, error) {
 	return mission, nil
 }
 
-func (r *MissionRepositoryReciever) Create(target int, description string, point int, startAt, endAt time.Time) (Mission, error) {
+func (r *MissionRepositoryReceiver) Create(target int, description string, point int, startAt, endAt time.Time) (Mission, error) {
 	mission := Mission{
 		Target:      target,
 		Description: description,
@@ -56,7 +56,7 @@ func (r *MissionRepositoryReciever) Create(target int, description string, point
 	return mission, nil
 }
 
-func (r *MissionRepositoryReciever) Update(id uint, target int, description string, point int, startAt, endAt time.Time) (Mission, error) {
+func (r *MissionRepositoryReceiver) Update(id uint, target int, description string, point int, startAt, endAt time.Time) (Mission, error) {
 	mission := Mission{
 		Target:      target,
 		Description: description,
@@ -71,7 +71,7 @@ func (r *MissionRepositoryReciever) Update(id uint, target int, description stri
 	return mission, nil
 }
 
-func (r *MissionRepositoryReciever) Delete(id uint) error {
+func (r *MissionRepositoryReceiver) Delete(id uint) error {
 	if err := r.DB.Where("id = ?", id).Delete(&Mission{}).Error; err != nil {
 		return err
 	}
