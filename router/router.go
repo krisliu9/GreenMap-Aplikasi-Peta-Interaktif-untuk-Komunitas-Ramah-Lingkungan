@@ -16,15 +16,18 @@ func NewRouter() echo.Echo {
 	pinpointRepo := repository.NewPinpointRepository(*database.DB)
 	missionRepo := repository.NewMissionRepository(*database.DB)
 	reportRepo := repository.NewReportRepository(*database.DB)
+	userMissionRepo := repository.NewUserMissionRepository(*database.DB)
 
 	userUseCase := usecase.NewUserUseCase(userRepo)
+	userMissionUseCase := usecase.NewUserMissionUseCase(userMissionRepo)
 	userController := controllers.NewUserControllers(userUseCase)
-	pinpointUseCase := usecase.NewPinpointUseCase(pinpointRepo)
+	pinpointUseCase := usecase.NewPinpointUseCase(*userMissionUseCase, pinpointRepo)
 	pinpointController := controllers.NewPinpointControllers(pinpointUseCase)
 	missionUseCase := usecase.NewMissionUseCase(missionRepo)
 	missionController := controllers.NewMissionControllers(missionUseCase)
 	reportUseCase := usecase.NewReportUseCase(reportRepo)
 	reportController := controllers.NewReportControllers(reportUseCase)
+	userMissionController := controllers.NewUserMissionControllers(userMissionUseCase)
 
 	e := echo.New()
 	e.GET("/reports", reportController.GetAllReports)
@@ -44,6 +47,7 @@ func NewRouter() echo.Echo {
 	e.DELETE("/pinpoints/:id", pinpointController.DeletePinpoint)
 	e.POST("/users/login", userController.Login)
 	e.POST("/users/register", userController.Register)
+	e.POST("/usermissions/take", userMissionController.TakeMission)
 	e.Logger.Fatal(e.Start(":8080"))
 
 	return *e
