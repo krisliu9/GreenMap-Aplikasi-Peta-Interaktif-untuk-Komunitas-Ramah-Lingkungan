@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"mini-project/auth"
 	"mini-project/repository"
 	"mini-project/usecase"
 	"net/http"
@@ -60,6 +61,9 @@ func (controller *PinpointControllers) GetPinpoint(c echo.Context) error {
 }
 
 func (controller *PinpointControllers) CreatePinpoint(c echo.Context) error {
+	claims, _ := auth.GetTokenClaims(c)
+	userId := claims["user_id"]
+
 	var input repository.Pinpoint
 
 	c.Bind(&input)
@@ -73,7 +77,7 @@ func (controller *PinpointControllers) CreatePinpoint(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, response)
 	}
 
-	pinpoint, err := controller.PinpointUseCase.CreatePinpoint(input.Name, input.Description, input.Latitude, input.Longitude)
+	pinpoint, err := controller.PinpointUseCase.CreatePinpoint(userId.(uint), input.Name, input.Description, input.Latitude, input.Longitude)
 	if err != nil {
 		response := Response{
 			Status:     false,

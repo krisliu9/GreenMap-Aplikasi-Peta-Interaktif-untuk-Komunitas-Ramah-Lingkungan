@@ -5,12 +5,14 @@ import (
 )
 
 type PinpointUseCase struct {
-	PinpointRepo repository.PinpointRepository
+	UserMissionUseCase UserMissionUseCase
+	PinpointRepo       repository.PinpointRepository
 }
 
-func NewPinpointUseCase(repo repository.PinpointRepository) *PinpointUseCase {
+func NewPinpointUseCase(userMissionUseCase UserMissionUseCase, pinpointRepo repository.PinpointRepository) *PinpointUseCase {
 	return &PinpointUseCase{
-		PinpointRepo: repo,
+		UserMissionUseCase: userMissionUseCase,
+		PinpointRepo:       pinpointRepo,
 	}
 }
 
@@ -30,11 +32,24 @@ func (usecase *PinpointUseCase) GetPinpoint(id uint) (repository.Pinpoint, error
 	return pinpoint, nil
 }
 
-func (usecase *PinpointUseCase) CreatePinpoint(name, description string, latitude, longitude float64) (repository.Pinpoint, error) {
+func (usecase *PinpointUseCase) CreatePinpoint(userId uint, name, description string, latitude, longitude float64) (repository.Pinpoint, error) {
 	pinpoint, err := usecase.PinpointRepo.Create(name, description, latitude, longitude)
 	if err != nil {
 		return repository.Pinpoint{}, err
 	}
+
+	currentMissions, err := usecase.UserMissionUseCase.GetMissionByUserId(userId)
+	if err != nil {
+		return repository.Pinpoint{}, err
+	}
+
+	for _, currentMission := range currentMissions {
+		_, err = usecase.UserMissionUseCase.ProgressMission(currentMission.ID)
+		if err != nil {
+			return repository.Pinpoint{}, err
+		}
+	}
+
 	return pinpoint, nil
 }
 
