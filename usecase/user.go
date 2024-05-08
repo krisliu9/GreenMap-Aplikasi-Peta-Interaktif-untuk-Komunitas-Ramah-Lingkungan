@@ -15,16 +15,16 @@ func NewUserUseCase(repo repository.UserRepository) *UserUseCase {
 	}
 }
 
-func (usecase *UserUseCase) Login(email, password string) (string, error) {
+func (usecase *UserUseCase) Login(email, password string) (repository.User, string, error) {
 	user, err := usecase.UserRepo.Login(email, password)
 	if err != nil {
-		return "", err
+		return user, "", err
 	}
 	token, err := auth.GenerateToken(user.ID, user.Role)
 	if err != nil {
-		return token, err
+		return user, token, err
 	}
-	return token, nil
+	return user, token, nil
 }
 
 func (usecase *UserUseCase) Register(name, email, password, role string) (string, error) {

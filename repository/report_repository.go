@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"time"
+
 	"gorm.io/gorm"
 )
 
@@ -50,24 +52,18 @@ func (r *ReportRepositoryReceiver) Create(reason string) (Report, error) {
 }
 
 func (r *ReportRepositoryReceiver) Update(id uint, reason string) (Report, error) {
-	report, err := r.GetByID(id)
-	if err != nil {
+	reportUpdate := Report{
+		Reason:    reason,
+		UpdatedAt: time.Now(),
+	}
+	if err := r.DB.Model(Report{}).Where("id = ?", id).Updates(&reportUpdate).Error; err != nil {
 		return Report{}, err
 	}
-	report.Reason = reason
-	err = r.DB.Save(&report).Error
-	if err != nil {
-		return Report{}, err
-	}
-	return report, nil
+	return reportUpdate, nil
 }
 
 func (r *ReportRepositoryReceiver) Delete(id uint) error {
-	report, err := r.GetByID(id)
-	if err != nil {
-		return err
-	}
-	err = r.DB.Delete(&report).Error
+	err := r.DB.Delete(&Report{}, id).Error
 	if err != nil {
 		return err
 	}

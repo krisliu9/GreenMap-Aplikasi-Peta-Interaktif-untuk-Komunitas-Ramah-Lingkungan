@@ -36,8 +36,8 @@ CREATE TABLE user_missions (
     current_progress INT,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (mission_id) REFERENCES missions(id)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (mission_id) REFERENCES missions(id) ON DELETE SET NULL
 );
 
 CREATE TABLE pinpoints (
@@ -51,8 +51,8 @@ CREATE TABLE pinpoints (
     description VARCHAR(255),
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (pinpoint_type_id) REFERENCES pinpoint_types(id)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (pinpoint_type_id) REFERENCES pinpoint_types(id) ON DELETE SET NULL
 );
 
 CREATE TABLE reports (
@@ -62,6 +62,6 @@ CREATE TABLE reports (
     reason TEXT,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (pinpoint_id) REFERENCES pinpoints(id)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (pinpoint_id) REFERENCES pinpoints(id) ON DELETE SET NULL
 );
