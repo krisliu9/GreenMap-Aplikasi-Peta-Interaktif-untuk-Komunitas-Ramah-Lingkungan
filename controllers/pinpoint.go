@@ -60,6 +60,16 @@ func (controller *PinpointControllers) GetPinpoint(c echo.Context) error {
 	return c.JSON(http.StatusOK, response)
 }
 
+type PinpointInsertResponse struct {
+	ID             uint    `json:"id"`
+	UserID         uint    `json:"user_id"`
+	PinpointTypeID uint    `json:"pinpoint_type_id"`
+	Name           string  `json:"name"`
+	Description    string  `json:"description"`
+	Latitude       float64 `json:"latitude"`
+	Longitude      float64 `json:"longitude"`
+}
+
 func (controller *PinpointControllers) CreatePinpoint(c echo.Context) error {
 	claims, _ := auth.GetTokenClaims(c)
 	userId := claims["user_id"]
@@ -77,7 +87,7 @@ func (controller *PinpointControllers) CreatePinpoint(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, response)
 	}
 
-	pinpoint, err := controller.PinpointUseCase.CreatePinpoint(userId.(uint), input.Name, input.Description, input.Latitude, input.Longitude)
+	pinpoint, err := controller.PinpointUseCase.CreatePinpoint(uint(userId.(float64)), input.Name, input.Description, input.Latitude, input.Longitude)
 	if err != nil {
 		response := Response{
 			Status:     false,
@@ -86,17 +96,27 @@ func (controller *PinpointControllers) CreatePinpoint(c echo.Context) error {
 		}
 		return echo.NewHTTPError(http.StatusInternalServerError, response)
 	}
+
+	pinpointResponse := PinpointInsertResponse{
+		ID:             pinpoint.ID,
+		UserID:         pinpoint.UserID,
+		PinpointTypeID: pinpoint.PinpointTypeID,
+		Name:           pinpoint.Name,
+		Description:    pinpoint.Description,
+		Latitude:       pinpoint.Latitude,
+		Longitude:      pinpoint.Longitude,
+	}
+
 	response := Response{
 		Status:     true,
 		StatusCode: http.StatusCreated,
 		Message:    "Pinpoint created",
-		Data:       pinpoint,
+		Data:       pinpointResponse,
 	}
 	return c.JSON(http.StatusCreated, response)
 }
 
 func (controller *PinpointControllers) UpdatePinpoint(c echo.Context) error {
-	id, _ := strconv.Atoi(c.Param("id"))
 	var input repository.Pinpoint
 
 	c.Bind(&input)
@@ -110,7 +130,7 @@ func (controller *PinpointControllers) UpdatePinpoint(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, response)
 	}
 
-	pinpoint, err := controller.PinpointUseCase.UpdatePinpoint(uint(id), input.Name, input.Description, input.Latitude, input.Longitude)
+	pinpoint, err := controller.PinpointUseCase.UpdatePinpoint(uint(input.ID), input.Name, input.Description, input.Latitude, input.Longitude)
 	if err != nil {
 		response := Response{
 			Status:     false,
@@ -119,19 +139,31 @@ func (controller *PinpointControllers) UpdatePinpoint(c echo.Context) error {
 		}
 		return echo.NewHTTPError(http.StatusInternalServerError, response)
 	}
+
+	pinpointResponse := PinpointInsertResponse{
+		ID:             pinpoint.ID,
+		UserID:         pinpoint.UserID,
+		PinpointTypeID: pinpoint.PinpointTypeID,
+		Name:           pinpoint.Name,
+		Description:    pinpoint.Description,
+		Latitude:       pinpoint.Latitude,
+		Longitude:      pinpoint.Longitude,
+	}
+
 	response := Response{
 		Status:     true,
 		StatusCode: http.StatusOK,
 		Message:    "Pinpoint updated",
-		Data:       pinpoint,
+		Data:       pinpointResponse,
 	}
 	return c.JSON(http.StatusOK, response)
 }
 
 func (controller *PinpointControllers) DeletePinpoint(c echo.Context) error {
-	id, _ := strconv.Atoi(c.Param("id"))
+	var input repository.Pinpoint
+	c.Bind(&input)
 
-	err := controller.PinpointUseCase.DeletePinpoint(uint(id))
+	err := controller.PinpointUseCase.DeletePinpoint(uint(input.ID))
 	if err != nil {
 		response := Response{
 			Status:     false,

@@ -21,7 +21,8 @@ func NewUserRepository(db gorm.DB) *UserRepositoryReceiver {
 
 func (repo *UserRepositoryReceiver) Login(email, password string) (User, error) {
 	var user User
-	result := repo.DB.Where("email = ? AND password = ?", email, password).First(&user)
+	repo.DB = *repo.DB.Debug()
+	result := repo.DB.First(&user, "email = ? AND password = ?", email, password)
 	if result.Error != nil {
 		return User{}, result.Error
 	}

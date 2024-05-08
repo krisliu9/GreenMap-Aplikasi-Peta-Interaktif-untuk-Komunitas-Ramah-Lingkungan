@@ -6,6 +6,7 @@ import (
 	"mini-project/usecase"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/labstack/echo/v4"
 )
@@ -41,11 +42,21 @@ func (controller *MissionControllers) GetMission(c echo.Context) error {
 }
 
 type MissionInsertRequest struct {
+	ID          int    `json:"id"`
 	Target      int    `json:"target"`
 	Description string `json:"description"`
 	Point       int    `json:"point"`
 	StartAt     string `json:"start_at"`
 	EndAt       string `json:"end_at"`
+}
+
+type MissionInsertResponse struct {
+	ID          uint      `json:"id"`
+	Target      int       `json:"target"`
+	Description string    `json:"description"`
+	Point       int       `json:"point"`
+	StartAt     time.Time `json:"start_at"`
+	EndAt       time.Time `json:"end_at"`
 }
 
 func (controller *MissionControllers) CreateMission(c echo.Context) error {
@@ -84,11 +95,20 @@ func (controller *MissionControllers) CreateMission(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, response)
 	}
 
+	missionResponse := MissionInsertResponse{
+		ID:          mission.ID,
+		Target:      mission.Target,
+		Description: mission.Description,
+		Point:       mission.Point,
+		StartAt:     mission.StartAt,
+		EndAt:       mission.EndAt,
+	}
+
 	response := Response{
 		Status:     true,
 		StatusCode: http.StatusCreated,
 		Message:    "Mission created",
-		Data:       mission,
+		Data:       missionResponse,
 	}
 	return c.JSON(http.StatusCreated, response)
 }
@@ -105,7 +125,6 @@ func (controller *MissionControllers) UpdateMission(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, response)
 	}
 
-	id, _ := strconv.Atoi(c.Param("id"))
 	var input MissionInsertRequest
 
 	c.Bind(&input)
@@ -119,7 +138,7 @@ func (controller *MissionControllers) UpdateMission(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, response)
 	}
 
-	mission, err := controller.MissionUseCase.UpdateMission(uint(id), input.Target, input.Description, input.Point, input.StartAt, input.EndAt)
+	mission, err := controller.MissionUseCase.UpdateMission(uint(input.ID), input.Target, input.Description, input.Point, input.StartAt, input.EndAt)
 	if err != nil {
 		response := Response{
 			Status:     false,
@@ -129,11 +148,20 @@ func (controller *MissionControllers) UpdateMission(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, response)
 	}
 
+	missionResponse := MissionInsertResponse{
+		ID:          mission.ID,
+		Target:      mission.Target,
+		Description: mission.Description,
+		Point:       mission.Point,
+		StartAt:     mission.StartAt,
+		EndAt:       mission.EndAt,
+	}
+
 	response := Response{
 		Status:     true,
 		StatusCode: http.StatusOK,
 		Message:    "Mission updated",
-		Data:       mission,
+		Data:       missionResponse,
 	}
 	return c.JSON(http.StatusOK, response)
 }
@@ -150,9 +178,10 @@ func (controller *MissionControllers) DeleteMission(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, response)
 	}
 
-	id, _ := strconv.Atoi(c.Param("id"))
+	var input MissionInsertRequest
+	c.Bind(&input)
 
-	err = controller.MissionUseCase.DeleteMission(uint(id))
+	err = controller.MissionUseCase.DeleteMission(uint(input.ID))
 	if err != nil {
 		response := Response{
 			Status:     false,

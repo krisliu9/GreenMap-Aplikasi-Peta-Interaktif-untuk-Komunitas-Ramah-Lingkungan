@@ -72,7 +72,7 @@ func (r *MissionRepositoryReceiver) Update(id uint, target int, description stri
 }
 
 func (r *MissionRepositoryReceiver) Delete(id uint) error {
-	if err := r.DB.Where("id = ?", id).Delete(&Mission{}).Error; err != nil {
+	if err := r.DB.Delete(&Mission{}, id).Error; err != nil {
 		return err
 	}
 	return nil

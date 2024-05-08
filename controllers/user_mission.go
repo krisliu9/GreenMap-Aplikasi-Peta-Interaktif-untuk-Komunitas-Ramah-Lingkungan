@@ -22,6 +22,13 @@ type TakeMissionRequest struct {
 	MissionId uint `json:"mission_id"`
 }
 
+type TakeUserMissionResponse struct {
+	ID              uint `json:"id"`
+	MissionId       uint `json:"mission_id"`
+	UserId          uint `json:"user_id"`
+	CurrentProgress int  `json:"current_progress"`
+}
+
 func (controller *UserMissionControllers) TakeMission(c echo.Context) error {
 
 	claims, _ := auth.GetTokenClaims(c)
@@ -49,11 +56,18 @@ func (controller *UserMissionControllers) TakeMission(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, response)
 	}
 
+	usermissionResponse := TakeUserMissionResponse{
+		ID:              mission.ID,
+		MissionId:       mission.MissionID,
+		UserId:          mission.UserID,
+		CurrentProgress: mission.CurrentProgress,
+	}
+
 	response := Response{
 		Status:     true,
 		StatusCode: http.StatusCreated,
 		Message:    "Mission created",
-		Data:       mission,
+		Data:       usermissionResponse,
 	}
 	return c.JSON(http.StatusCreated, response)
 }

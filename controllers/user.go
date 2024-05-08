@@ -32,7 +32,7 @@ func (controller *UserControllers) Login(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, response)
 	}
 
-	token, err := controller.UserUseCase.Login(input.Email, input.Password)
+	input, token, err := controller.UserUseCase.Login(input.Email, input.Password)
 	if err != nil {
 		response := Response{
 			Status:     false,
@@ -46,6 +46,7 @@ func (controller *UserControllers) Login(c echo.Context) error {
 		StatusCode: http.StatusCreated,
 		Message:    "Login success",
 		Token:      token,
+		Data:       input,
 	}
 	return c.JSON(http.StatusCreated, response)
 }
@@ -78,6 +79,7 @@ func (controller *UserControllers) Register(c echo.Context) error {
 		StatusCode: http.StatusCreated,
 		Message:    "Register success",
 		Token:      token,
+		Data:       input,
 	}
 	return c.JSON(http.StatusCreated, response)
 }
