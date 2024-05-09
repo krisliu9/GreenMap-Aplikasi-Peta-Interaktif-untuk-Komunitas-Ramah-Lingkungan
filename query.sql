@@ -3,6 +3,7 @@ CREATE TABLE users (
     email VARCHAR(255),
     password VARCHAR(255),
     name VARCHAR(255),
+    current_point INT,
     tier VARCHAR(255),
     role VARCHAR(255),
     created_at TIMESTAMP,

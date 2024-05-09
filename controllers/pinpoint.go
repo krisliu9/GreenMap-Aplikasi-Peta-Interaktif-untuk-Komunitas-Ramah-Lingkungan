@@ -73,7 +73,6 @@ type PinpointInsertResponse struct {
 func (controller *PinpointControllers) CreatePinpoint(c echo.Context) error {
 	claims, _ := auth.GetTokenClaims(c)
 	userId := claims["user_id"]
-
 	var input repository.Pinpoint
 
 	c.Bind(&input)
@@ -98,13 +97,13 @@ func (controller *PinpointControllers) CreatePinpoint(c echo.Context) error {
 	}
 
 	pinpointResponse := PinpointInsertResponse{
-		ID:             pinpoint.ID,
-		UserID:         pinpoint.UserID,
-		PinpointTypeID: pinpoint.PinpointTypeID,
-		Name:           pinpoint.Name,
-		Description:    pinpoint.Description,
-		Latitude:       pinpoint.Latitude,
-		Longitude:      pinpoint.Longitude,
+		ID:     pinpoint.ID,
+		UserID: pinpoint.UserID,
+		// PinpointTypeID: pinpoint.PinpointTypeID,
+		Name:        pinpoint.Name,
+		Description: pinpoint.Description,
+		Latitude:    pinpoint.Latitude,
+		Longitude:   pinpoint.Longitude,
 	}
 
 	response := Response{
@@ -141,13 +140,13 @@ func (controller *PinpointControllers) UpdatePinpoint(c echo.Context) error {
 	}
 
 	pinpointResponse := PinpointInsertResponse{
-		ID:             pinpoint.ID,
-		UserID:         pinpoint.UserID,
-		PinpointTypeID: pinpoint.PinpointTypeID,
-		Name:           pinpoint.Name,
-		Description:    pinpoint.Description,
-		Latitude:       pinpoint.Latitude,
-		Longitude:      pinpoint.Longitude,
+		ID:     pinpoint.ID,
+		UserID: pinpoint.UserID,
+		// PinpointTypeID: pinpoint.PinpointTypeID,
+		Name:        pinpoint.Name,
+		Description: pinpoint.Description,
+		Latitude:    pinpoint.Latitude,
+		Longitude:   pinpoint.Longitude,
 	}
 
 	response := Response{
