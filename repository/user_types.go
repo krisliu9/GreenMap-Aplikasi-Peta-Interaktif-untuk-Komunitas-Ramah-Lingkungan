@@ -3,12 +3,13 @@ package repository
 import "time"
 
 type User struct {
-	ID        uint      `json:"id" gorm:"primaryKey"`
-	Name      string    `json:"name" gorm:"column:name"`
-	Email     string    `json:"email" gorm:"column:email"`
-	Tier      string    `json:"tier" gorm:"column:tier"`
-	Password  string    `json:"password" gorm:"column:password"`
-	Role      string    `json:"role" gorm:"column:role"`
-	CreatedAt time.Time `json:"created_at" gorm:"column:created_at"`
-	UpdatedAt time.Time `json:"updated_at" gorm:"column:updated_at"`
+	ID            uint      `json:"id" gorm:"primaryKey"`
+	Name          string    `json:"name" gorm:"column:name"`
+	Email         string    `json:"email" gorm:"column:email"`
+	Current_Point int       `json:"current_point" gorm:"column:current_point"`
+	Tier          string    `json:"tier" gorm:"column:tier"`
+	Password      string    `json:"password" gorm:"column:password"`
+	Role          string    `json:"role" gorm:"column:role"`
+	CreatedAt     time.Time `json:"created_at" gorm:"column:created_at"`
+	UpdatedAt     time.Time `json:"updated_at" gorm:"column:updated_at"`
 }

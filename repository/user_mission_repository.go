@@ -74,5 +74,6 @@ func (r *UserMissionRepositoryReceiver) Update(id uint) (UserMission, error) {
 	if err := r.DB.Model(UserMission{}).Where("id = ?", id).Updates(&userMissionUpdate).Error; err != nil {
 		return UserMission{}, err
 	}
+	userMission.CurrentProgress = userMissionUpdate.CurrentProgress
 	return userMission, nil
 }

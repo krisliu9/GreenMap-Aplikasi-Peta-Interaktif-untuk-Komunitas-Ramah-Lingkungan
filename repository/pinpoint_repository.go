@@ -10,7 +10,7 @@ import (
 type PinpointRepository interface {
 	GetAll() ([]Pinpoint, error)
 	GetByID(id uint) (Pinpoint, error)
-	Create(name, description string, latitude, longitude float64) (Pinpoint, error)
+	Create(userId uint, name, description string, latitude, longitude float64) (Pinpoint, error)
 	Update(id uint, name, description string, latitude, longitude float64) (Pinpoint, error)
 	Delete(id uint) error
 }
@@ -41,8 +41,9 @@ func (r *PinpointRepositoryReceiver) GetByID(id uint) (Pinpoint, error) {
 	return pinpoint, nil
 }
 
-func (r *PinpointRepositoryReceiver) Create(name, description string, latitude, longitude float64) (Pinpoint, error) {
+func (r *PinpointRepositoryReceiver) Create(userId uint, name, description string, latitude, longitude float64) (Pinpoint, error) {
 	pinpoint := Pinpoint{
+		UserID:      userId,
 		Name:        name,
 		Description: description,
 		Latitude:    latitude,

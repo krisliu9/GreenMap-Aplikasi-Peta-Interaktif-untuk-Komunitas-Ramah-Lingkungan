@@ -1,12 +1,15 @@
 package repository
 
 import (
+	"time"
+
 	"gorm.io/gorm"
 )
 
 type UserRepository interface {
 	Login(email, password string) (User, error)
 	Register(name, email, password, role string) (User, error)
+	UpdatePoint(userId uint, point int) (User, error)
 }
 
 type UserRepositoryReceiver struct {
@@ -36,4 +39,27 @@ func (repo *UserRepositoryReceiver) Register(name, email, password, role string)
 		return user, result.Error
 	}
 	return user, nil
+}
+
+func (repo *UserRepositoryReceiver) GetByID(userId uint) (User, error) {
+	var user User
+	if err := repo.DB.First(&user, userId).Error; err != nil {
+		return User{}, err
+	}
+	return user, nil
+}
+
+func (repo *UserRepositoryReceiver) UpdatePoint(userId uint, point int) (User, error) {
+	user, err := repo.GetByID(userId)
+	if err != nil {
+		return User{}, err
+	}
+	userUpdate := User{
+		Current_Point: user.Current_Point + point,
+		UpdatedAt:     time.Now(),
+	}
+	if err := repo.DB.Model(User{}).Where("id = ?", userId).Updates(&userUpdate).Error; err != nil {
+		return User{}, err
+	}
+	return userUpdate, nil
 }

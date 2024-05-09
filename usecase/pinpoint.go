@@ -7,12 +7,16 @@ import (
 type PinpointUseCase struct {
 	UserMissionUseCase UserMissionUseCase
 	PinpointRepo       repository.PinpointRepository
+	UserRepo           repository.UserRepository
+	MissionUseCase     MissionUseCase
 }
 
-func NewPinpointUseCase(userMissionUseCase UserMissionUseCase, pinpointRepo repository.PinpointRepository) *PinpointUseCase {
+func NewPinpointUseCase(userMissionUseCase UserMissionUseCase, pinpointRepo repository.PinpointRepository, userRepo repository.UserRepository, missionUseCase MissionUseCase) *PinpointUseCase {
 	return &PinpointUseCase{
 		UserMissionUseCase: userMissionUseCase,
 		PinpointRepo:       pinpointRepo,
+		UserRepo:           userRepo,
+		MissionUseCase:     missionUseCase,
 	}
 }
 
@@ -33,7 +37,7 @@ func (usecase *PinpointUseCase) GetPinpoint(id uint) (repository.Pinpoint, error
 }
 
 func (usecase *PinpointUseCase) CreatePinpoint(userId uint, name, description string, latitude, longitude float64) (repository.Pinpoint, error) {
-	pinpoint, err := usecase.PinpointRepo.Create(name, description, latitude, longitude)
+	pinpoint, err := usecase.PinpointRepo.Create(userId, name, description, latitude, longitude)
 	if err != nil {
 		return repository.Pinpoint{}, err
 	}
@@ -44,12 +48,15 @@ func (usecase *PinpointUseCase) CreatePinpoint(userId uint, name, description st
 	}
 
 	for _, currentMission := range currentMissions {
-		_, err = usecase.UserMissionUseCase.ProgressMission(currentMission.ID)
+		userMission, err := usecase.UserMissionUseCase.ProgressMission(currentMission.ID)
 		if err != nil {
 			return repository.Pinpoint{}, err
 		}
+		mission, _ := usecase.MissionUseCase.GetMission(currentMission.MissionID)
+		if userMission.CurrentProgress == mission.Target {
+			usecase.UserRepo.UpdatePoint(userId, mission.Point)
+		}
 	}
-
 	return pinpoint, nil
 }
 

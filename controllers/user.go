@@ -18,6 +18,15 @@ func NewUserControllers(userUseCase *usecase.UserUseCase) *UserControllers {
 	}
 }
 
+type UserInsertResponse struct {
+	ID            uint   `json:"id"`
+	Name          string `json:"name"`
+	Email         string `json:"email"`
+	Role          string `json:"role"`
+	Current_Point int    `json:"current_point"`
+	Tier          string `json:"tier"`
+}
+
 func (controller *UserControllers) Login(c echo.Context) error {
 	var input repository.User
 
@@ -41,12 +50,21 @@ func (controller *UserControllers) Login(c echo.Context) error {
 		}
 		return echo.NewHTTPError(http.StatusInternalServerError, response)
 	}
+	userResponse := UserInsertResponse{
+		ID:            input.ID,
+		Name:          input.Name,
+		Email:         input.Email,
+		Role:          input.Role,
+		Current_Point: input.Current_Point,
+		Tier:          input.Tier,
+	}
+
 	response := Response{
 		Status:     true,
 		StatusCode: http.StatusCreated,
 		Message:    "Login success",
 		Token:      token,
-		Data:       input,
+		Data:       userResponse,
 	}
 	return c.JSON(http.StatusCreated, response)
 }
@@ -74,12 +92,21 @@ func (controller *UserControllers) Register(c echo.Context) error {
 		}
 		return echo.NewHTTPError(http.StatusInternalServerError, response)
 	}
+	userResponse := UserInsertResponse{
+		ID:            input.ID,
+		Name:          input.Name,
+		Email:         input.Email,
+		Role:          input.Role,
+		Current_Point: input.Current_Point,
+		Tier:          input.Tier,
+	}
+
 	response := Response{
 		Status:     true,
 		StatusCode: http.StatusCreated,
 		Message:    "Register success",
 		Token:      token,
-		Data:       input,
+		Data:       userResponse,
 	}
 	return c.JSON(http.StatusCreated, response)
 }
