@@ -9,14 +9,16 @@ type PinpointUseCase struct {
 	PinpointRepo       repository.PinpointRepository
 	UserRepo           repository.UserRepository
 	MissionUseCase     MissionUseCase
+	UserUseCase        UserUseCase
 }
 
-func NewPinpointUseCase(userMissionUseCase UserMissionUseCase, pinpointRepo repository.PinpointRepository, userRepo repository.UserRepository, missionUseCase MissionUseCase) *PinpointUseCase {
+func NewPinpointUseCase(userMissionUseCase UserMissionUseCase, pinpointRepo repository.PinpointRepository, userRepo repository.UserRepository, missionUseCase MissionUseCase, userUseCase UserUseCase) *PinpointUseCase {
 	return &PinpointUseCase{
 		UserMissionUseCase: userMissionUseCase,
 		PinpointRepo:       pinpointRepo,
 		UserRepo:           userRepo,
 		MissionUseCase:     missionUseCase,
+		UserUseCase:        userUseCase,
 	}
 }
 
@@ -55,6 +57,7 @@ func (usecase *PinpointUseCase) CreatePinpoint(userId uint, name, description st
 		mission, _ := usecase.MissionUseCase.GetMission(currentMission.MissionID)
 		if userMission.CurrentProgress == mission.Target {
 			usecase.UserRepo.UpdatePoint(userId, mission.Point)
+			usecase.UserUseCase.UpdateTier(userId)
 		}
 	}
 	return pinpoint, nil

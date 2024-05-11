@@ -10,6 +10,8 @@ type UserRepository interface {
 	Login(email, password string) (User, error)
 	Register(name, email, password, role string) (User, error)
 	UpdatePoint(userId uint, point int) (User, error)
+	UpdateTier(userId uint, tierId uint) (User, error)
+	GetByID(userId uint) (User, error)
 }
 
 type UserRepositoryReceiver struct {
@@ -33,8 +35,8 @@ func (repo *UserRepositoryReceiver) Login(email, password string) (User, error) 
 }
 
 func (repo *UserRepositoryReceiver) Register(name, email, password, role string) (User, error) {
-	user := User{Name: name, Email: email, Password: password, Role: role}
-	result := repo.DB.Create(&user)
+	user := User{Name: name, Email: email, Password: password, Role: role, Tier_ID: 1}
+	result := repo.DB.Omit("Tier_Name").Create(&user)
 	if result.Error != nil {
 		return user, result.Error
 	}
@@ -57,6 +59,17 @@ func (repo *UserRepositoryReceiver) UpdatePoint(userId uint, point int) (User, e
 	userUpdate := User{
 		Current_Point: user.Current_Point + point,
 		UpdatedAt:     time.Now(),
+	}
+	if err := repo.DB.Model(User{}).Where("id = ?", userId).Updates(&userUpdate).Error; err != nil {
+		return User{}, err
+	}
+	return userUpdate, nil
+}
+
+func (repo *UserRepositoryReceiver) UpdateTier(userId, tierId uint) (User, error) {
+	userUpdate := User{
+		Tier_ID:   tierId,
+		UpdatedAt: time.Now(),
 	}
 	if err := repo.DB.Model(User{}).Where("id = ?", userId).Updates(&userUpdate).Error; err != nil {
 		return User{}, err

@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"mini-project/auth"
 	"mini-project/repository"
 	"mini-project/usecase"
 	"net/http"
@@ -24,7 +25,8 @@ type UserInsertResponse struct {
 	Email         string `json:"email"`
 	Role          string `json:"role"`
 	Current_Point int    `json:"current_point"`
-	Tier          string `json:"tier"`
+	Tier_ID       uint   `json:"tier_id,omitempty"`
+	Tier_Name     string `json:"tier_name"`
 }
 
 func (controller *UserControllers) Login(c echo.Context) error {
@@ -56,7 +58,7 @@ func (controller *UserControllers) Login(c echo.Context) error {
 		Email:         input.Email,
 		Role:          input.Role,
 		Current_Point: input.Current_Point,
-		Tier:          input.Tier,
+		Tier_ID:       input.Tier_ID,
 	}
 
 	response := Response{
@@ -98,7 +100,7 @@ func (controller *UserControllers) Register(c echo.Context) error {
 		Email:         input.Email,
 		Role:          input.Role,
 		Current_Point: input.Current_Point,
-		Tier:          input.Tier,
+		Tier_ID:       input.Tier_ID,
 	}
 
 	response := Response{
@@ -109,4 +111,35 @@ func (controller *UserControllers) Register(c echo.Context) error {
 		Data:       userResponse,
 	}
 	return c.JSON(http.StatusCreated, response)
+}
+
+func (controller *UserControllers) Me(c echo.Context) error {
+	claims, _ := auth.GetTokenClaims(c)
+	userId := claims["user_id"]
+
+	user, err := controller.UserUseCase.GetByID(uint(userId.(float64)))
+	if err != nil {
+		response := Response{
+			Status:     false,
+			StatusCode: http.StatusInternalServerError,
+			Message:    "Failed to get user",
+		}
+		return echo.NewHTTPError(http.StatusInternalServerError, response)
+	}
+	userResponse := UserInsertResponse{
+		ID:            user.ID,
+		Name:          user.Name,
+		Email:         user.Email,
+		Role:          user.Role,
+		Current_Point: user.Current_Point,
+		Tier_Name:     user.Tier_Name,
+	}
+
+	response := Response{
+		Status:     true,
+		StatusCode: http.StatusOK,
+		Message:    "Success get user",
+		Data:       userResponse,
+	}
+	return c.JSON(http.StatusOK, response)
 }
