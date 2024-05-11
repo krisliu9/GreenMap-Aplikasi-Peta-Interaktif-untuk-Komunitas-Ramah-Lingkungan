@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Google Maps API</title>
+  </head>
+  <body>
+    <h1>Google Maps API</h1>
+
+    <div id="map" class="map"></div>
+
+    <div class="parent">
+      <div class="child">
+        <label for="latitude">Latitude</label>
+        <input type="text" id="latitude" name="latitude" />
+      </div>
+
+      <div class="child">
+        <label for="longitude">Longitude</label>
+        <input type="text" id="longitude" name="longitude" />
+      </div>
+    </div>
+
+    <!-- paste your API key here -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN3IanaKNFZ-zvZ29NNe_oJ4OUw38F_aw&callback=initMap&libraries=&v=weekly"
+      defer
+    ></script>
+    <script>
+      function initMap() {
+        // The location of Colombo
+        var colombo = { lat: -6.888437388932203, lng: 107.59608516642582 };
+
+        // The map, centered at Colombo
+        var map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 12,
+          center: colombo,
+          draggable: true,
+        });
+
+        //adding the marker
+        var marker = new google.maps.Marker({
+          position: colombo,
+          map: map,
+          draggable: true,
+        });
+
+        marker.setMap(map);
+
+        map.addListener("center_changed", () => {
+          // 3 seconds after the center of the map has changed, pan back to the marker.
+          window.setTimeout(() => {
+            map.panTo(marker.getPosition());
+          }, 3000);
+        });
+
+        marker.addListener("mouseout", () => {
+          map.setZoom(12);
+          map.setCenter(marker.getPosition());
+          console.log("i am dragged");
+
+          var lat = marker.getPosition().lat();
+          var lng = marker.getPosition().lng();
+
+          console.log(lat);
+          console.log(lng);
+
+          document.getElementById("latitude").value = lat;
+          document.getElementById("longitude").value = lng;
+        });
+      }
+    </script>
+  </body>
+
+  <style type="text/css">
+    h1 {
+      text-align: center;
+    }
+    .map {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      height: 450px;
+      border: 0;
+    }
+    .parent {
+      margin: 1rem;
+      padding: 2rem 2rem;
+      text-align: center;
+      top: 80%;
+      position: absolute;
+      float: center;
+      width: 90%;
+    }
+    .child {
+      display: inline-block;
+      padding: 1rem 1rem;
+      vertical-align: middle;
+    }
+  </style>
+</html>

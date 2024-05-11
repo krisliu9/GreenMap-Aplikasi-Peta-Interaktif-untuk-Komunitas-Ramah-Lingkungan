@@ -1,16 +1,3 @@
-CREATE TABLE users (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(255),
-    password VARCHAR(255),
-    name VARCHAR(255),
-    current_point INT,
-    tier VARCHAR(255),
-    role VARCHAR(255),
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP,
-    CONSTRAINT email_unique UNIQUE (email)
-);
-
 CREATE TABLE pinpoint_types (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     image_url VARCHAR(255),
@@ -29,6 +16,29 @@ CREATE TABLE missions (
     created_at TIMESTAMP,
     updated_at TIMESTAMP
 );
+
+CREATE TABLE tiers (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    tier_name VARCHAR(255),
+    minimal_point INT,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
+);
+
+CREATE TABLE users (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    tier_id BIGINT,
+    email VARCHAR(255),
+    password VARCHAR(255),
+    name VARCHAR(255),
+    current_point INT,
+    role VARCHAR(255),
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    CONSTRAINT email_unique UNIQUE (email),
+    FOREIGN KEY (tier_id) REFERENCES tiers(id) ON DELETE SET NULL
+);
+
 
 CREATE TABLE user_missions (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
