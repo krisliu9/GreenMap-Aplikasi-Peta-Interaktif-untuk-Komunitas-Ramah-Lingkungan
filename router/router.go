@@ -7,6 +7,7 @@ import (
 	"mini-project/usecase"
 
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 func NewRouter() echo.Echo {
@@ -32,6 +33,8 @@ func NewRouter() echo.Echo {
 	userMissionController := controllers.NewUserMissionControllers(userMissionUseCase)
 
 	e := echo.New()
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
 	e.POST("/tiers", controllers.NewTierControllers(tierUseCase).CreateTier)
 	e.PUT("/tiers/:id", controllers.NewTierControllers(tierUseCase).UpdateTier)
 	e.DELETE("/tiers/:id", controllers.NewTierControllers(tierUseCase).DeleteTier)
@@ -46,7 +49,10 @@ func NewRouter() echo.Echo {
 	e.POST("/missions", missionController.CreateMission)
 	e.PUT("/missions", missionController.UpdateMission)
 	e.DELETE("/missions", missionController.DeleteMission)
-	e.GET("/pinpoints", pinpointController.GetAllPinpoints)
+	e.GET("/pinpoints", pinpointController.GetAllPinpoints, middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"*"},      // Allows all origins
+		AllowMethods: []string{echo.GET}, // Specify the methods allowed
+	}))
 	e.GET("/pinpoints/:id", pinpointController.GetPinpoint)
 	e.POST("/pinpoints", pinpointController.CreatePinpoint)
 	e.PUT("/pinpoints", pinpointController.UpdatePinpoint)

@@ -10,64 +10,88 @@
 
     <div id="map" class="map"></div>
 
-    <div class="parent">
-      <div class="child">
-        <label for="latitude">Latitude</label>
-        <input type="text" id="latitude" name="latitude" />
-      </div>
-
-      <div class="child">
-        <label for="longitude">Longitude</label>
-        <input type="text" id="longitude" name="longitude" />
-      </div>
-    </div>
-
     <!-- paste your API key here -->
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN3IanaKNFZ-zvZ29NNe_oJ4OUw38F_aw&callback=initMap&libraries=&v=weekly"
       defer
     ></script>
     <script>
-      function initMap() {
-        // The location of Colombo
+      async function getPinPoint() {
+        // Set the URL of the server endpoint
+        const url = "http://localhost:8080/pinpoints";
+
+        try {
+          // Use fetch to send a GET request to the server
+          const response = await fetch(url);
+
+          // Check if the response is ok (status in the range 200-299)
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+
+          // Parse the JSON response body
+          const data = await response.json();
+
+          // Return the data from the response
+          return data;
+        } catch (error) {
+          // Handle any errors
+          console.error("Error:", error);
+          throw error; // Rethrow the error if you want to allow the caller to handle it
+        }
+      }
+      async function initMap() {
+        const data = await getPinPoint();
+        console.log(data.data);
+
         var colombo = { lat: -6.888437388932203, lng: 107.59608516642582 };
 
-        // The map, centered at Colombo
         var map = new google.maps.Map(document.getElementById("map"), {
           zoom: 12,
           center: colombo,
           draggable: true,
         });
 
-        //adding the marker
-        var marker = new google.maps.Marker({
-          position: colombo,
-          map: map,
-          draggable: true,
+        data.data.forEach(function (pin) {
+          var marker = new google.maps.Marker({
+            position: { lat: pin.latitude, lng: pin.longitude },
+            // icon: pin.image,
+            map: map,
+            draggable: true,
+          });
+
+          var infoWindow = new google.maps.InfoWindow({
+            content: `
+            <div style="width: 200px; min-height: 40px;">
+              <h3 style="color: #007bff; margin-top: 0;">${pin.name}</h3>
+              <p style="font-size: 14px; color: #333;">${pin.description}</p>
+            </div>
+          `,
+          });
+
+          marker.addListener("mouseover", function () {
+            infoWindow.open(map, marker);
+          });
+
+          marker.addListener("mouseout", function () {
+            infoWindow.close();
+          });
+
+          marker.addListener("dragend", function (event) {
+            console.log(
+              "Marker dragged to: ",
+              event.latLng.lat(),
+              event.latLng.lng()
+            );
+            document.getElementById("latitude").value = event.latLng.lat();
+            document.getElementById("longitude").value = event.latLng.lng();
+          });
         });
 
-        marker.setMap(map);
-
         map.addListener("center_changed", () => {
-          // 3 seconds after the center of the map has changed, pan back to the marker.
           window.setTimeout(() => {
             map.panTo(marker.getPosition());
           }, 3000);
-        });
-
-        marker.addListener("mouseout", () => {
-          map.setZoom(12);
-          map.setCenter(marker.getPosition());
-          console.log("i am dragged");
-
-          var lat = marker.getPosition().lat();
-          var lng = marker.getPosition().lng();
-
-          console.log(lat);
-          console.log(lng);
-
-          document.getElementById("latitude").value = lat;
-          document.getElementById("longitude").value = lng;
         });
       }
     </script>
