@@ -35,6 +35,9 @@ ENV DB_PORT=3306
 ENV DB_USER=root
 ENV DB_PASSWORD=password
 ENV DB_NAME=test_miniproject
+ENV DB_CHARSET=utf8mb4
+ENV DB_PARSE_TIME=True
+ENV DB_LOC=Local
 
 # Run the web service on container startup.
 CMD ["./myapp"]
