@@ -47,7 +47,7 @@ sebutkan daftar tools dan framework yang digunakan dalam bentuk list seperti ini
 
 ## API Documentation
 
-https://github.com/krisliu9/GreenMap-Aplikasi-Peta-Interaktif-untuk-Komunitas-Ramah-Lingkungan/blob/main/postman_collection.json
+https://documenter.getpostman.com/view/33039625/2sA3JNcgL2
 
 ## ERD
 
@@ -64,6 +64,6 @@ DB_PORT=3306
 DB_NAME=test_miniproject
 DB_CHARSET=utf8mb4
 DB_PARSE_TIME=True
-DB_LOC=Local` atau bisa menggunakan data di lokal
+DB_LOC=Local` data bisa disesuaikan dengan kebutuhan user
 4. masukkan command mysql di mysql lokal berdasarkan query table file query.sql
 5. jalankan go run main.go di terminal
