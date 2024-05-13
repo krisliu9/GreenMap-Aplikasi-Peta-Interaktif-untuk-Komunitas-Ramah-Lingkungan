@@ -51,8 +51,19 @@ https://github.com/krisliu9/GreenMap-Aplikasi-Peta-Interaktif-untuk-Komunitas-Ra
 
 ## ERD
 
-sertakan gambar ERD. bisa ditempelkan langsung di file markdown atau diberi link
+![](https://github.com/krisliu9/GreenMap-Aplikasi-Peta-Interaktif-untuk-Komunitas-Ramah-Lingkungan/blob/main/mini_project-ERD.jpg)
 
 ## Setup
 
-sebutkan cara menggunakan project ini di lokal
+1. buka aplikasi IDE
+2. lakukan git clone https://github.com/krisliu9/GreenMap-Aplikasi-Peta-Interaktif-untuk-Komunitas-Ramah-Lingkungan.git
+3. buat file .env di root folder dan masukkan `DB_USER=root
+DB_PASSWORD=password
+DB_HOST=34.87.99.166
+DB_PORT=3306
+DB_NAME=test_miniproject
+DB_CHARSET=utf8mb4
+DB_PARSE_TIME=True
+DB_LOC=Local` atau bisa menggunakan data di lokal
+4. masukkan command mysql di mysql lokal berdasarkan query table file query.sql
+5. jalankan go run main.go di terminal
