@@ -36,11 +36,7 @@ jobs:
           docker build . -t asia-southeast1-docker.pkg.dev/latihan-alterra/mini-project/app
           docker push asia-southeast1-docker.pkg.dev/latihan-alterra/mini-project/app
 
-      - name: "Set up App Engine"
-        uses: "google-github-actions/deploy-appengine@v2"
-        with:
-          project_id: latihan-alterra
-
       - name: "Deploy based on docker image"
         run: |-
+          gcloud components install app-engine-go
           gcloud app deploy --image-url=asia-southeast1-docker.pkg.dev/latihan-alterra/mini-project/app
