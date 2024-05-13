@@ -12,7 +12,7 @@ const (
 	apiEndpoint = "https://api.openai.com/v1/chat/completions"
 )
 
-func ChatBotResponse() {
+func ChatBotResponse(inputUser string) string {
 	apiKey := "Api Key Here"
 	client := resty.New()
 
@@ -21,7 +21,7 @@ func ChatBotResponse() {
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"model":      "gpt-3.5-turbo",
-			"messages":   []interface{}{map[string]interface{}{"role": "system", "content": "Hi can you tell me what is the factorial of 10?"}},
+			"messages":   []interface{}{map[string]interface{}{"role": "system", "content": inputUser}},
 			"max_tokens": 50,
 		}).
 		Post(apiEndpoint)
@@ -36,11 +36,12 @@ func ChatBotResponse() {
 	err = json.Unmarshal(body, &data)
 	if err != nil {
 		fmt.Println("Error while decoding JSON response:", err)
-		return
+		return ""
 	}
 
 	// content := data["choices"].([]interface{})[0].(map[string]interface{})["message"].(map[string]interface{})["content"].(string)
 	content := data
 	fmt.Println(content)
-
+	answer := data["choices"].([]interface{})[0].(map[string]interface{})["message"].(map[string]interface{})["content"].(string)
+	return answer
 }
