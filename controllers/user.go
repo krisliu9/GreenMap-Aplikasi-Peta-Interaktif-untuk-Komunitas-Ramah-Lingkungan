@@ -79,7 +79,7 @@ func (controller *UserControllers) Register(c echo.Context) error {
 	if input.Name == "" || input.Email == "" || input.Password == "" {
 		response := Response{
 			Status:     false,
-			StatusCode: http.StatusInternalServerError,
+			StatusCode: http.StatusBadRequest,
 			Message:    "Name, email, and password are required",
 		}
 		return echo.NewHTTPError(http.StatusBadRequest, response)

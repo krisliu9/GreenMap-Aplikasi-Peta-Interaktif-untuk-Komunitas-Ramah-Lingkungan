@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"mini-project/repository"
 	"mini-project/usecase"
 	"net/http"
@@ -69,7 +70,7 @@ type ReportInsertResponse struct {
 func (controller *ReportControllers) CreateReport(c echo.Context) error {
 	var input repository.Report
 	c.Bind(&input)
-
+	fmt.Println(input)
 	if input.Reason == "" {
 		response := Response{
 			Status:     false,
@@ -90,10 +91,10 @@ func (controller *ReportControllers) CreateReport(c echo.Context) error {
 	}
 
 	reportResponse := ReportInsertResponse{
-		ID:         report.ID,
-		UserID:     report.UserID,
-		PinpointID: report.PinpointID,
-		Reason:     report.Reason,
+		ID: report.ID,
+		// UserID:     report.UserID,
+		// PinpointID: report.PinpointID,
+		Reason: report.Reason,
 	}
 
 	response := Response{
@@ -129,10 +130,10 @@ func (controller *ReportControllers) UpdateReport(c echo.Context) error {
 	}
 
 	reportResponse := ReportInsertResponse{
-		ID:         report.ID,
-		UserID:     report.UserID,
-		PinpointID: report.PinpointID,
-		Reason:     report.Reason,
+		ID: report.ID,
+		// UserID:     report.UserID,
+		// PinpointID: report.PinpointID,
+		Reason: report.Reason,
 	}
 
 	response := Response{
