@@ -1,0 +1,1777 @@
+{
+	"info": {
+		"_postman_id": "1de74da7-34e5-4d37-a63f-84f2ca12aa9e",
+		"name": "test_miniproject",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33039625"
+	},
+	"item": [
+		{
+			"name": "pinpoints",
+			"item": [
+				{
+					"name": "post pinpoint",
+					"item": [
+						{
+							"name": "post pinpoint",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTU0NTM3MzEsInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6NX0.kTJWdJaphharqhcf4bzUzU_ZFOtPa6OG0wrDzse5kFE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Unikom\",\r\n    \"description\":\"Pohon yang terletak didekat Unikom\",\r\n    \"latitude\": -8.8860,   \r\n    \"longitude\": 108.7138\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/pinpoints",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"pinpoints"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "post pinpoint exist response",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTU0NTM3MzEsInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6NX0.kTJWdJaphharqhcf4bzUzU_ZFOtPa6OG0wrDzse5kFE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Unikom\",\r\n    \"description\":\"Pohon yang terletak didekat Unikom\",\r\n    \"latitude\": -8.8860,   \r\n    \"longitude\": 108.7138\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/pinpoints",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"pinpoints"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "post pinpoint user error",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTU0NTM3MzEsInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6NX0.kTJWdJaphharqhcf4bzUzU_ZFOtPa6OG0wrDzse5kFE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Unikom\",\r\n    \"description\":\"\",\r\n    \"latitude\": -7.8860,   \r\n    \"longitude\": 188.7138\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/pinpoints",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"pinpoints"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "post pinpoint no user token error",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Unikom\",\r\n    \"description\":\"test\",\r\n    \"latitude\": -7.8860,   \r\n    \"longitude\": 188.7138\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/pinpoints",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"pinpoints"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get pinpoints",
+					"item": [
+						{
+							"name": "get all pinpoints",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/pinpoints",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"pinpoints"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get pinpoints by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/pinpoints/3",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"pinpoints",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get pinpoints by id data error",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/pinpoints/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"pinpoints",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "update pinpoints by id",
+					"item": [
+						{
+							"name": "update pinpoints by id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : 2,\r\n    \"name\":\"Paris Van Java 2\",\r\n    \"description\":\"tempat yang sangat lengkap kebutuhannya 2\",\r\n    \"latitude\": -6.888875129222447, \r\n    \"longitude\": 107.595747414657\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/pinpoints",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"pinpoints"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update pinpoints by id user error",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : 2,\r\n    \"name\":\"\",\r\n    \"description\":\"tempat yang sangat lengkap kebutuhannya 2\",\r\n    \"latitude\": -6.888875129222447, \r\n    \"longitude\": 107.595747414657\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/pinpoints",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"pinpoints"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "bug id no exist",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : 2,\r\n    \"name\":\"2 pvj\",\r\n    \"description\":\"tempat yang sangat lengkap kebutuhannya 2\",\r\n    \"latitude\": -6.888875129222447, \r\n    \"longitude\": 107.595747414657\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/pinpoints",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"pinpoints"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "delete pinpoints by id",
+					"item": [
+						{
+							"name": "delete pinpoints by id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/pinpoints",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"pinpoints"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete pinpoints error n",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : 30\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/pinpoints",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"pinpoints"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "login",
+					"item": [
+						{
+							"name": "login admin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTUwOTYwOTgsInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6MX0.7H19c7oQn6-twJQM81pbSz0SRn62No87qnm71KmAC3M",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/users/login",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login user",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"test@gmail.com\",\r\n    \"password\": \"123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/users/login",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login user error",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/users/login",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login internal error",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"123123\",\r\n    \"password\": \"123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/users/login",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "register",
+					"item": [
+						{
+							"name": "register user",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1iIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTQ0NzAzNjksIm5hbWUiOiJrcmlzIn0.5oD_SRnD7-og2NZ32NxoNsWAo7KNucdKtsUKM6GRTu8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"test\",\r\n    \"email\": \"3test@gmail.com\",\r\n    \"password\": \"123\",\r\n    \"role\" : \"user\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/users/register",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "register admin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1iIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTQ0NzAzNjksIm5hbWUiOiJrcmlzIn0.5oD_SRnD7-og2NZ32NxoNsWAo7KNucdKtsUKM6GRTu8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"admin2\",\r\n    \"email\": \"2admin@gmail.com\",\r\n    \"password\": \"123\",\r\n    \"role\" : \"user\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/users/register",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "register user error",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1iIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTQ0NzAzNjksIm5hbWUiOiJrcmlzIn0.5oD_SRnD7-og2NZ32NxoNsWAo7KNucdKtsUKM6GRTu8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"admin2\",\r\n    \"email\": \"\",\r\n    \"password\": \"123\",\r\n    \"role\" : \"user\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/users/register",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "register internal error",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1iIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTQ0NzAzNjksIm5hbWUiOiJrcmlzIn0.5oD_SRnD7-og2NZ32NxoNsWAo7KNucdKtsUKM6GRTu8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"test\",\r\n    \"email\": \"3test@gmail.com\",\r\n    \"password\": \"123\",\r\n    \"role\" : \"user\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/users/register",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"register"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "user profile",
+					"item": [
+						{
+							"name": "user profile admin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTU1Nzg2OTIsInJvbGUiOiJhZG1pbiIsInVzZXJfaWQiOjN9.z7bN1kzqmlkYeQ_OHBf9U0b8eairg7_6d1zlbqezRGA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/me",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"me"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user profile user",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTU1Nzg3NzgsInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6Nn0.he-ZaRu7TbOUOxZ-ZHBy256rp26kXFIjceqz0Dm-o10",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/me",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"me"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user profile no token error",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/me",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"me"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "missions",
+			"item": [
+				{
+					"name": "post missions",
+					"item": [
+						{
+							"name": "post missions by admin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTU1OTk3MTIsInJvbGUiOiJhZG1pbiIsInVzZXJfaWQiOjN9.8JMTLmhqh_7xxlHzaPV8JBY6B10NnnJWmXHBZg7mLEk",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"target\": 1,\r\n    \"description\": \"misi foto pohon unik\",\r\n    \"point\" : 1,\r\n    \"start_at\" : \"09-09-2009 00:00:00 +07\",\r\n    \"end_at\" : \"10-10-2010 23:59:59 +07\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/missions",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"missions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "post missions by admin user error",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTU2MTA3MDIsInJvbGUiOiJhZG1pbiIsInVzZXJfaWQiOjN9.X0I_EePB8Lb03UEDwxFeA_E4P_lJL8KOE6NLeM6hlHc",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"target\": 1,\r\n    \"description\": \"\",\r\n    \"point\" : 1,\r\n    \"start_at\" : \"09-09-2009 00:00:00 +07\",\r\n    \"end_at\" : \"10-10-2010 23:59:59 +07\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/missions",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"missions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "post missions by admin no token error",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"target\": 1,\r\n    \"description\": \"\",\r\n    \"point\" : 1,\r\n    \"start_at\" : \"09-09-2009 00:00:00 +07\",\r\n    \"end_at\" : \"10-10-2010 23:59:59 +07\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/missions",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"missions"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get missions",
+					"item": [
+						{
+							"name": "get missions by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/missions/4",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"missions",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get missions by id error no id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/missions/",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"missions",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get missions by id error data not found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/missions/5",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"missions",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all missions",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/missions",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"missions"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "update missions",
+					"item": [
+						{
+							"name": "update missions",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTU2MDA2OTEsInJvbGUiOiJhZG1pbiIsInVzZXJfaWQiOjN9.mCITG0lxXx0DDLwBddhv9lHhpx3QWULiL7VY1KbqVtc",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : 1,\r\n    \"target\": 4,\r\n    \"description\": \"misi mencari arah hidup\",\r\n    \"point\" : 4,\r\n    \"start_at\" : \"09-09-2009 00:00:00 +07\",\r\n    \"end_at\" : \"10-10-2010 23:59:59 +07\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/missions",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"missions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update missions user error",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTU2MDA2OTEsInJvbGUiOiJhZG1pbiIsInVzZXJfaWQiOjN9.mCITG0lxXx0DDLwBddhv9lHhpx3QWULiL7VY1KbqVtc",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : 1,\r\n    \"target\": 4,\r\n    \"description\": \"\",\r\n    \"point\" : 4,\r\n    \"start_at\" : \"09-09-2009 00:00:00 +07\",\r\n    \"end_at\" : \"10-10-2010 23:59:59 +07\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/missions",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"missions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update missions error no token",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : 1,\r\n    \"target\": 4,\r\n    \"description\": \"misi mencari arah hidup\",\r\n    \"point\" : 4,\r\n    \"start_at\" : \"09-09-2009 00:00:00 +07\",\r\n    \"end_at\" : \"10-10-2010 23:59:59 +07\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/missions",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"missions"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "delete missions",
+					"item": [
+						{
+							"name": "delete missions",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTU2MDA2OTEsInJvbGUiOiJhZG1pbiIsInVzZXJfaWQiOjN9.mCITG0lxXx0DDLwBddhv9lHhpx3QWULiL7VY1KbqVtc",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/missions",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"missions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete missions error no token",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/missions",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"missions"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "reports",
+			"item": [
+				{
+					"name": "post response",
+					"item": [
+						{
+							"name": "post reports",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"reason\" : \"this image from google\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/reports",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"reports"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "post reports user error",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"reason\" : \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/reports",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"reports"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get reports",
+					"item": [
+						{
+							"name": "get all reports",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/reports",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"reports"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get reports by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/reports/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"reports",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get reports by id error no id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/reports/",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"reports",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get reports by id error no data",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/reports/8",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"reports",
+										"8"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "update reports",
+					"item": [
+						{
+							"name": "update reports",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : 2,\r\n    \"reason\" : \"this image didnt match with the current state of the toilet\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/reports",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"reports"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update reports user error",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : 2,\r\n    \"reason\" : \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/reports",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"reports"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "delete reports",
+					"item": [
+						{
+							"name": "delete reports",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n    \"id\" : 2\r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/reports",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"reports"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete reports error url",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n    \"id\" : 2\r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/reports/",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"reports",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "user missions",
+			"item": [
+				{
+					"name": "user take missions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTU0NDk3OTEsInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6NH0.JhGHcfNHuBFmQlzwPrtXypDE263QGpkR6JFHvTuIdp8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\" : 5,\r\n    \"mission_id\" : 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/usermissions/take",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usermissions",
+								"take"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user take missions user error",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTU0NDk3OTEsInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6NH0.JhGHcfNHuBFmQlzwPrtXypDE263QGpkR6JFHvTuIdp8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\" : ,\r\n    \"mission_id\" : 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/usermissions/take",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usermissions",
+								"take"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user take missions no token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\" : 5,\r\n    \"mission_id\" : 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/usermissions/take",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usermissions",
+								"take"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "tiers",
+			"item": [
+				{
+					"name": "post tier",
+					"item": [
+						{
+							"name": "post tier",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tier_name\" : \"Champion\",\r\n    \"minimal_point\" : 5000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/tiers",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"tiers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "bug duplicate",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tier_name\" : \"Champion\",\r\n    \"minimal_point\" : 5000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/tiers",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"tiers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "post tier user error",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tier_name\" : \"\",\r\n    \"minimal_point\" : 5000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/tiers",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"tiers"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "update tier",
+					"item": [
+						{
+							"name": "update tier",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tier_name\" : \"Legend\",\r\n    \"minimal_point\" : 1000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/tiers/4",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"tiers",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update tier id not found",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tier_name\" : \"Legend\",\r\n    \"minimal_point\" : 1000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/tiers/",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"tiers",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update tier user error",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tier_name\" : \"\",\r\n    \"minimal_point\" : 1000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/tiers/4",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"tiers",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "delete tier",
+					"item": [
+						{
+							"name": "delete tier",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/tiers/8",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"tiers",
+										"8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete tier id not found",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/tiers/",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"tiers",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
