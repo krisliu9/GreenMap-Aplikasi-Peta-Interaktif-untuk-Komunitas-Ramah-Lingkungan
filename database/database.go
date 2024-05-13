@@ -13,9 +13,9 @@ var DB *gorm.DB
 
 func InitDatabase() {
 	err := godotenv.Load()
-	if err != nil {
-		panic("Failed to load .env file")
-	}
+	// if err != nil {
+	// 	// panic("Failed to load .env file")
+	// }
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=%s&parseTime=%s&loc=%s",
 		os.Getenv("DB_USER"),
