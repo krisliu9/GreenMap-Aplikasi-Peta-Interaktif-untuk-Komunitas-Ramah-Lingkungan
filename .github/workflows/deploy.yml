@@ -1,0 +1,41 @@
+name: build and push to google cloud platform
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-push-gcp:
+    name: build and push to GCP
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_ID: latihan-alterra
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v3"
+
+      - name: "Google auth"
+        id: "auth"
+        uses: "google-github-actions/auth@v1"
+        with:
+          service_account_key: "${{ secrets.SERVICE_ACCOUNT_KEY }}"
+          export_default_credentials: true
+
+      - name: "Set up Cloud SDK"
+        uses: "google-github-actions/setup-gcloud@v1"
+        with:
+          project_id: latihan-alterra
+
+      - name: "Docker auth"
+        run: |-
+          gcloud auth configure-docker asia-southeast1-docker.pkg.dev
+
+      - name: "Build and push container"
+        run: |-
+          docker build . -t asia-southeast1-docker.pkg.dev/latihan-alterra/mini-project/app
+          docker push asia-southeast1-docker.pkg.dev/latihan-alterra/mini-project/app
+
+      - name: "Deploy based on docker image"
+        run: |-
+          gcloud app deploy --image-url=asia-southeast1-docker.pkg.dev/latihan-alterra/mini-project/app
