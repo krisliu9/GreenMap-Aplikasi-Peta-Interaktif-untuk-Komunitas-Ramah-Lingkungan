@@ -23,7 +23,7 @@ WORKDIR /root/
 
 # Copy the binary to the production image from the builder stage.
 COPY --from=builder /app/myapp .
-COPY --from=builder /app/.env .
+# COPY --from=builder /app/.env .
 
 # Optionally, if you want to include the .env file:
 # COPY --from=builder /app/.env .
